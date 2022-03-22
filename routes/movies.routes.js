@@ -56,7 +56,7 @@ router.get('/movies/create',async (req, res, next) => {
             const celebrity = await Celebrity.find()
             arrayCheck = [];
             celebrity.forEach((el)=>{
-                arrayCheck.push({name :el.name, math: false })
+                arrayCheck.push({name :el.name, id: el._id, math: false })
             })
             arrayCheck.forEach((elCeleb)=>{
                 movie.cast.forEach((elMovie)=>{

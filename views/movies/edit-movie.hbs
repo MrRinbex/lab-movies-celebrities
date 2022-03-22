@@ -14,8 +14,8 @@
 {{/with}}
 
  <select name="cast" id={{id}} multiple>
-        {{#each celebrities}}
-        <option value="{{id}}">{{name}}</option>
+        {{#each arrayCheck}}
+        <option value="{{id}}" {{#if match}} selected="selected" {{/if}}>{{name}}</option>
         {{/each}}
     </select>
     <input type="submit" value="Submit">
