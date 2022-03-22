@@ -32,7 +32,54 @@ router.get('/movies/create',async (req, res, next) => {
      }
 })
     router.get('/movies/:id', async(req, res, next) => {
-        
+        const data = await Movie.findById(req.params.id).populate("cast")
+        try{
+             return res.render('movies/movie-details.hbs', {data})
+        }
+        catch(error) {
+            console.log(" Error is :", error) 
+         }
     })
+    router.post('/movies/:id/delete', async(req, res, next) => {
+        try{
+            await Movie.findByIdAndDelete(req.params.id)
+            res.redirect("/movies")
+        }
+        catch(error) {
+            console.log(" Error is :", error) 
+         }
+    })
+    router.get('/movies/:id/edit', async(req, res, next) => {
+        try{
+            const movie = await Movie.findById(req.params.id).populate('cast')
+            console.log(movie)
+            const celebrity = await Celebrity.find()
+            arrayCheck = [];
+            celebrity.forEach((el)=>{
+                arrayCheck.push({name :el.name, math: false })
+            })
+            arrayCheck.forEach((elCeleb)=>{
+                movie.cast.forEach((elMovie)=>{
+                elCeleb.name === elMovie.name? elCeleb.match = true : elCeleb.match = false    
+                })
+            })
+            res.render("movies/edit-movie", {movie, arrayCheck})
+        }
+        catch(error) {
+            console.log(" Error is :", error) 
+         }
+    })
+    router.post('/movies/:id/edit', async(req, res, next) => {
+        const q = req.body
+        try{
+            await Movie.findByIdAndUpdate(req.params.id, q, {new : true})
+            res.redirect("/movies")
+        }
+        catch(error) {
+            console.log(" Error is :", error) 
+         }
+    })
+
+    
 
 module.exports = router;

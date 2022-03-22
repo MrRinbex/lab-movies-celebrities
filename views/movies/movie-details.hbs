@@ -1,0 +1,19 @@
+<a href="/">Home Page</a>
+<h1>Movie details</h1>
+{{#with data}}
+<h2>*{{title}}*</h2>
+<h3>{{genre}}</h3>
+<h4>{{plot}}</h4>
+{{/with}}
+{{#each data.cast}}
+<h2>*{{this.name}}</h2>
+<h5>{{this.occupation}}</h5>
+<h6>{{this.catchPhrase}}</h6>
+{{/each}}
+<br>
+<form action="/movies/{{data.id}}/delete" method="POST">
+<input type="submit" value="delete">
+</form>
+<br>
+<a href="/movies/{{data.id}}/edit">Edit</a>
+

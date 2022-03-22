@@ -7,7 +7,7 @@
     <input type="text" name="genre" id="">
     <label for="plot">plot</label>
     <input type="text" name="plot" id="">
-    <select name="cast" id="{{_id}}" multiple>
+    <select name="cast" id={{_id}} multiple>
         {{#each celebrities}}
         <option value="{{_id}}">{{name}}</option>
         {{/each}}
